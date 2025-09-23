@@ -1,7 +1,7 @@
 (use-modules (gnu packages)
              ((gnu packages bash) #:select (bash-minimal))
              (gnu packages bison)
-             ((gnu packages certs) #:select (nss-certs))
+             ((gnu packages nss) #:select (nss-certs))
              ((gnu packages cmake) #:select (cmake-minimal))
              (gnu packages commencement)
              (gnu packages compression)
@@ -553,7 +553,7 @@ inspecting signatures in Mach-O binaries.")
         git-minimal
         ;; Tests
         python-lief)
-  (let ((target (getenv "HOST")))
+  (let ((target (or (getenv "HOST") "x86_64-linux-gnu")))
     (cond ((string-suffix? "-mingw32" target)
            (list zip
                  (make-mingw-pthreads-cross-toolchain "x86_64-w64-mingw32")
